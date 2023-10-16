@@ -1,6 +1,7 @@
 package com.demo.demospring;
 
 
+import com.demo.demospring.aop.TimeTraceAop;
 import com.demo.demospring.repository.*;
 import com.demo.demospring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,13 @@ public class SpringConfig {
     public MemberService memberService(){
         return new MemberService(memberRepository);   // 스프링 빈에 등록한 Repository를 넣어줌
     }
+
+    // 정형화되지 않은 특별한 경우 직접 Bean으로 생성하는게 나을듯
+    // @Bean
+    // public TimeTraceAop timeTraceAop(){
+    // return new TimeTraceAop();
+    // }
+
 
 //    @Bean   // 등록할 스프링 빈
 //    public MemberRepository memberRepository(){
