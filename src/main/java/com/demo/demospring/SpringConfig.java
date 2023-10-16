@@ -2,6 +2,7 @@ package com.demo.demospring;
 
 
 import com.demo.demospring.repository.JdbcMemberRepository;
+import com.demo.demospring.repository.JdbcTemplateMemberRepository;
 import com.demo.demospring.repository.MemberRepository;
 import com.demo.demospring.repository.MemoryMemberRepository;
 import com.demo.demospring.service.MemberService;
@@ -24,7 +25,8 @@ public class SpringConfig {
 
     @Bean   // 등록할 스프링 빈
     public MemberRepository memberRepository(){
-        // return new MemoryMemberRepository();
-        return new JdbcMemberRepository(dataSource);
+        // return new MemoryMemberRepository(); // 메모리
+        // return new JdbcMemberRepository(dataSource); // Jdbc
+        return new JdbcTemplateMemberRepository(dataSource);   // Jdbc Template
     }
 }
