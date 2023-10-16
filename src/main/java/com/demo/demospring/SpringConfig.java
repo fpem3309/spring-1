@@ -1,21 +1,24 @@
 package com.demo.demospring;
 
 
-import com.demo.demospring.repository.JdbcMemberRepository;
-import com.demo.demospring.repository.JdbcTemplateMemberRepository;
-import com.demo.demospring.repository.MemberRepository;
-import com.demo.demospring.repository.MemoryMemberRepository;
+import com.demo.demospring.repository.*;
 import com.demo.demospring.service.MemberService;
+import jakarta.persistence.EntityManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.sql.DataSource;
-
 @Configuration
 public class SpringConfig {
-    private DataSource dataSource;
-    public SpringConfig(DataSource dataSource) {
-        this.dataSource = dataSource;
+//    private DataSource dataSource;
+//    public SpringConfig(DataSource dataSource) {
+//        this.dataSource = dataSource;
+//    }
+
+    private EntityManager em;
+    @Autowired
+    public SpringConfig(EntityManager em) {
+        this.em = em;
     }
 
     @Bean   // 등록할 스프링 빈
@@ -27,6 +30,7 @@ public class SpringConfig {
     public MemberRepository memberRepository(){
         // return new MemoryMemberRepository(); // 메모리
         // return new JdbcMemberRepository(dataSource); // Jdbc
-        return new JdbcTemplateMemberRepository(dataSource);   // Jdbc Template
+        // return new JdbcTemplateMemberRepository(dataSource);   // Jdbc Template
+        return new JpaMemberRepository(em);
     }
 }
